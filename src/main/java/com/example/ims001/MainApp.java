@@ -1,43 +1,56 @@
 package com.example.ims001;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
-    private Stage stage;
+    private Stage primaryStage;
+    private Scene mainScene;
+
+    // Figma-based size
+    private static final int WIDTH = 1280;
+    private static final int HEIGHT = 720;
 
     @Override
-    public void start(Stage stage) throws Exception {
-        this.stage = stage;
-        stage.setTitle("Inventory Management System");
-        showLogin();
-        stage.show();
+    public void start(Stage stage) {
+        this.primaryStage = stage;
+        primaryStage.setTitle("Inventory Management System");
+
+        // Initialize empty scene once
+        mainScene = new Scene(new javafx.scene.layout.StackPane(), WIDTH, HEIGHT);
+
+        // Load global CSS once
+        mainScene.getStylesheets().add(
+                getClass().getResource("/styles.css").toExternalForm()
+        );
+
+        primaryStage.setScene(mainScene);
+        showLoginView();
+        primaryStage.show();
     }
 
-    public void showLogin() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ims001/LoginView.fxml"));
-            Parent root = loader.load();
-            LoginController controller = loader.getController();
-            controller.setMainApp(this);
-            stage.setScene(new Scene(root, 400, 300));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    /* ================= VIEW SWITCHERS ================= */
+
+    public void showLoginView() {
+        LoginView view = new LoginView(this);
+        mainScene.setRoot(view.getView());
     }
 
-    public void showRegister() {
-        RegisterView registerView = new RegisterView(this);
-        stage.setScene(new Scene(registerView.getView(), 400, 300));
+    public void showRegisterView() {
+        RegisterView view = new RegisterView(this);
+        mainScene.setRoot(view.getView());
     }
 
-    public void showDashboard() {
-        DashboardView dashboardView = new DashboardView(this);
-        stage.setScene(new Scene(dashboardView.getView(), 600, 400));
+    public void showForgotPasswordView() {
+        ForgotPasswordView view = new ForgotPasswordView(this);
+        mainScene.setRoot(view.getView());
+    }
+
+    public void showDashboardView(String username) {
+        DashboardView view = new DashboardView(this, username);
+        mainScene.setRoot(view.getView());
     }
 
     public static void main(String[] args) {

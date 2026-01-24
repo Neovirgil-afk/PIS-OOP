@@ -1,0 +1,117 @@
+/* ===== ROOT ===== */
+.login-root {
+    -fx-background-color: #F7FDFB;
+    -fx-padding: 80;
+}
+
+/* ===== TITLE ===== */
+.title {
+    -fx-pref-width: 417px;
+    -fx-text-fill: #03DE82;
+    -fx-font-family: Inter;
+    -fx-font-size: 36px;
+    -fx-font-weight: normal;
+    -fx-fill-height: 36px;
+}
+.title_2 {
+    -fx-pref-width: 778px;
+    -fx-pref-height: 92px;
+    -fx-text-fill: #03DE82;
+    -fx-font-family: Inter;
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+    -fx-fill-height: 12px;
+}
+
+/* ===== INPUTS ===== */
+.input-field-user{
+    -fx-pref-width: 719px;
+    -fx-pref-height: 72px;
+    -fx-padding: 12;
+    -fx-text-fill: #03DE82;
+    -fx-font-family: Inter;
+    -fx-font-size: 24px;
+    -fx-font-style: normal;
+
+}
+.input-field-password{
+    -fx-pref-width: 719px;
+    -fx-pref-height: 72px;
+    -fx-padding: 12;
+    -fx-text-fill: #03DE82;
+    -fx-font-family: Inter;
+    -fx-font-size: 24px;
+    -fx-font-style: normal;
+
+}
+.input-field {
+
+    -fx-pref-width: 719;
+    -fx-padding: 12;
+    -fx-border-color:#03DE82;
+    -fx-text-fill: #03DE82;
+    -fx-font-family: Inter;
+    -fx-font-size: 24px;
+    -fx-border-radius: 19px;
+    -fx-background-radius: 19px;
+}
+
+/* ===== CHECKBOX ===== */
+.checkbox {
+    -fx-text-fill: #03DE82;
+    -fx-font-size: 24px;
+    -fx-font-weight: normal;
+    -fx-fill-height: 46px;
+}
+
+/* ===== BUTTONS ===== */
+.primary-button {
+    -fx-pref-width: 719px;
+    -fx-pref-height: 72px;
+    -fx-border-radius: 19px;
+    -fx-font-family: Inter;
+    -fx-font-style: normal;
+    -fx-background-color: #03DE82;
+    -fx-border-color:#03DE82;
+    -fx-text-fill: #000;
+    -fx-font-size: 24px;
+    -fx-padding: 12 36;
+    -fx-background-radius: 19;
+}
+
+.primary-button:hover {
+    -fx-background-color: #00c973;
+}
+
+.secondary-button {
+    -fx-pref-width: 719px;
+    -fx-pref-height: 72px;
+    -fx-font-family: Inter;
+    -fx-font-style: normal;
+    -fx-background-color: transparent;
+    -fx-text-fill: #03DE82;
+    -fx-border-color:#03DE82;
+    -fx-font-size: 24px;
+    -fx-padding: 12 36;
+    -fx-border-radius: 19;
+    -fx-background-radius: 19;
+}
+
+.link-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #02E0E0;
+    -fx-font-size: 24px;
+}
+
+/* ===== MESSAGES ===== */
+.message-label {
+    -fx-font-size: 24px;
+}
+
+.message-error {
+    -fx-text-fill: red;
+}
+
+.message-success {
+    -fx-text-fill: #03DE82;
+}

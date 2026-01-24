@@ -11,20 +11,20 @@ public class DashboardView {
     private MainApp mainApp;
     private VBox root;
 
-    public DashboardView(MainApp mainApp) {
+    public DashboardView(MainApp mainApp, String username) {
         this.mainApp = mainApp;
-        createView();
+        createView(username);
     }
 
-    private void createView() {
+    private void createView(String username) {
         root = new VBox(15);
         root.setAlignment(Pos.CENTER);
 
-        Label welcomeLabel = new Label("Welcome to Inventory Dashboard!");
+        Label welcomeLabel = new Label("Welcome, " + username + "!");
         welcomeLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         Button btnLogout = new Button("Logout");
-        btnLogout.setOnAction(e -> mainApp.showLogin());
+        btnLogout.setOnAction(e -> mainApp.showLoginView());
 
         root.getChildren().addAll(welcomeLabel, btnLogout);
     }
