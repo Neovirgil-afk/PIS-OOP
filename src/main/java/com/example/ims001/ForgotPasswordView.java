@@ -25,12 +25,13 @@ public class ForgotPasswordView {
         root = new StackPane();
         root.getStyleClass().add("login-root");
 
-        // ===== Background =====
-        Image bgGif = new Image(getClass().getResource("/images/bgleftcard.jpg").toExternalForm());
+        //background
+        Image bgGif = new Image(getClass().getResource("/images/spacebg_5.gif").toExternalForm());
         ImageView bgView = new ImageView(bgGif);
         bgView.setFitWidth(1920);
         bgView.setFitHeight(1080);
         bgView.setPreserveRatio(false);
+        bgView.setOpacity(0.5);
 
         HBox mainBox = new HBox();
         mainBox.setAlignment(Pos.CENTER);
@@ -44,17 +45,69 @@ public class ForgotPasswordView {
 
     private VBox createLeftCard() {
         VBox leftCard = new VBox();
-        leftCard.setPrefWidth(400);
+        leftCard.setPrefWidth(500);
         leftCard.setAlignment(Pos.CENTER);
-        leftCard.getStyleClass().add("left-card");
+        leftCard.getStyleClass().addAll("left-card", "frosted-glass");
 
-        Image img = new Image(getClass().getResource("/images/bgleftcard_3.jpg").toExternalForm());
-        ImageView imgView = new ImageView(img);
-        imgView.setFitWidth(300);
-        imgView.setPreserveRatio(true);
-        imgView.setOpacity(0);
+        //Inner black box
+        StackPane innerBox = new StackPane();
+        innerBox.getStyleClass().addAll("inner-black-box");
 
-        leftCard.getChildren().add(imgView);
+        //innerBox responsive to leftCard size
+        innerBox.prefWidthProperty().bind(leftCard.widthProperty().multiply(0.9));
+        innerBox.prefHeightProperty().bind(leftCard.heightProperty().multiply(0.8));
+        innerBox.setAlignment(Pos.BOTTOM_CENTER);
+
+        //Text container inside the black box
+        VBox textContainer = new VBox(10);
+        textContainer.setAlignment(Pos.BOTTOM_CENTER);
+        textContainer.setStyle("-fx-padding: 20;");
+
+        //Logo placeholder
+        Label logo = new Label(" *"); // placeholder logo
+        logo.getStyleClass().add("inner-title");
+        logo.setStyle("-fx-text-fill: #03DE82; -fx-font-size: 100px; -fx-font-weight: bold;");
+        StackPane.setAlignment(logo, Pos.TOP_LEFT);
+        StackPane.setMargin(logo, new javafx.geometry.Insets(15, 0, 0, 15)); // top-left margin
+
+        //Title
+        Label title = new Label("Prestige Inventory Suites");
+        title.getStyleClass().add("inner-title");
+        title.styleProperty().bind(
+                innerBox.heightProperty().multiply(0.04).asString(
+                        "-fx-text-fill: #03DE82; -fx-font-weight: bold; -fx-font-family: Inter; -fx-font-size: %.0fpx;"
+                )
+        );
+        title.setMaxWidth(Double.MAX_VALUE);
+        VBox.setMargin(title, new javafx.geometry.Insets(0,0,0,10));
+        title.setAlignment(Pos.CENTER_LEFT);
+
+        //Description
+        Label description = new Label(
+                "This is a powerful inventory management app. " +
+                        "Keep track of your stock effortlessly. " +
+                        "Designed to make your business operations smooth."
+        );
+        description.getStyleClass().add("inner-description");
+        description.setWrapText(true);
+        description.styleProperty().bind(
+                innerBox.heightProperty().multiply(0.03).asString(
+                        "-fx-text-fill: #03DE82; -fx-font-family: Inter; -fx-font-size: %.0fpx;"
+                )
+        );
+        description.maxWidthProperty().bind(innerBox.widthProperty().multiply(0.85));
+        description.setAlignment(Pos.CENTER);
+
+        // added title and description to text container
+        textContainer.getChildren().addAll(title, description);
+
+        // added logo and text container to inner box
+        innerBox.getChildren().addAll(logo, textContainer);
+
+        // added inner box ngek
+        leftCard.getChildren().add(innerBox);
+        VBox.setVgrow(innerBox, javafx.scene.layout.Priority.ALWAYS);
+
         return leftCard;
     }
 
@@ -106,6 +159,7 @@ public class ForgotPasswordView {
         txtNewPassword.textProperty().bindBidirectional(txtNewPasswordText.textProperty());
 
         chkShowPassword = new CheckBox("Show Password");
+        chkShowPassword.getStyleClass().add("pass-button");
         chkShowPassword.setOnAction(e -> {
             boolean show = chkShowPassword.isSelected();
             txtNewPassword.setVisible(!show);
@@ -144,7 +198,7 @@ public class ForgotPasswordView {
         return rightCard;
     }
 
-    // ===== LOGIC (UNCHANGED) =====
+    //LOGIC
 
     private void handleReset() {
         String username = txtUsername.getText();

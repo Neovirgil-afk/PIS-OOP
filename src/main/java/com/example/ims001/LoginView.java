@@ -26,18 +26,18 @@ public class LoginView {
         root = new StackPane();
         root.getStyleClass().add("login-root");
 
-        // ===== Background GIF =====
-        Image bgGif = new Image(getClass().getResource("/images/bgleftcard.jpg").toExternalForm());
+        //Background
+        Image bgGif = new Image(getClass().getResource("/images/spacebg_5.gif").toExternalForm());
         ImageView bgView = new ImageView(bgGif);
         bgView.setFitWidth(1920);
         bgView.setFitHeight(1080);
         bgView.setPreserveRatio(false);
-        bgView.setOpacity(1);
+        bgView.setOpacity(0.5);
 
-        // ===== Main HBox with left and right cards =====
+        //Main HBox with left and right cards
         HBox mainBox = new HBox();
         mainBox.setAlignment(Pos.CENTER);
-        mainBox.setSpacing(0); // no gap between cards
+        mainBox.setSpacing(0);
 
         VBox leftCard = createLeftCard();
         VBox rightCard = createLoginCard();
@@ -49,21 +49,77 @@ public class LoginView {
 
     private VBox createLeftCard() {
         VBox leftCard = new VBox();
-        leftCard.setPrefWidth(400);
+        leftCard.setPrefWidth(500);
         leftCard.setAlignment(Pos.CENTER);
-        leftCard.getStyleClass().add("left-card");
+        leftCard.getStyleClass().addAll("left-card", "frosted-glass");
 
-        Image img = new Image(getClass().getResource("/images/bgleftcard_3.jpg").toExternalForm());
-        ImageView imgView = new ImageView(img);
-        imgView.setFitWidth(300);
-        imgView.setPreserveRatio(true);
-        imgView.setOpacity(0);
-        imgView.setSmooth(true);
-        imgView.setCache(true);
+        //Inner black box
+        StackPane innerBox = new StackPane();
+        innerBox.getStyleClass().addAll("inner-black-box");
 
-        leftCard.getChildren().add(imgView);
+        // Make innerBox responsive to leftCard size
+        innerBox.prefWidthProperty().bind(leftCard.widthProperty().multiply(0.9));
+        innerBox.prefHeightProperty().bind(leftCard.heightProperty().multiply(0.8));
+        innerBox.setAlignment(Pos.BOTTOM_CENTER);
+
+        //Text container inside black box
+        VBox textContainer = new VBox(10);
+        textContainer.setAlignment(Pos.BOTTOM_CENTER);
+        textContainer.setStyle("-fx-padding: 20;");
+
+        //Logo placeholder
+        Label logo = new Label(" *"); // placeholder logo
+        logo.getStyleClass().add("inner-title");
+        logo.setStyle("-fx-text-fill: #03DE82; -fx-font-size: 100px; -fx-font-weight: bold;" );
+        StackPane.setAlignment(logo, Pos.TOP_LEFT);
+        StackPane.setMargin(logo, new javafx.geometry.Insets(15, 0, 0, 15)); // top-left margin
+
+        //title
+        Label title = new Label("Prestige Inventory Suites");
+        title.getStyleClass().add("inner-title");
+        title.styleProperty().bind(
+                innerBox.heightProperty().multiply(0.04).asString(
+                        "-fx-text-fill: #03DE82; -fx-font-weight: bold; -fx-font-family: Inter; -fx-font-size: %.0fpx;"
+                )
+        );
+        title.setMaxWidth(Double.MAX_VALUE);
+        VBox.setMargin(title, new javafx.geometry.Insets(0,0,0,10));
+        title.setAlignment(Pos.CENTER_LEFT);
+
+        //description
+        Label description = new Label(
+                "This is a powerful inventory management app. " +
+                        "Keep track of your stock effortlessly. " +
+                        "Designed to make your business operations smooth."
+        );
+        description.getStyleClass().add("inner-description");
+        description.setWrapText(true);
+        description.styleProperty().bind(
+                innerBox.heightProperty().multiply(0.03).asString(
+                        "-fx-text-fill: #03DE82; -fx-font-family: Inter; -fx-font-size: %.0fpx;"
+                )
+        );
+        description.maxWidthProperty().bind(innerBox.widthProperty().multiply(0.85));
+        description.setAlignment(Pos.CENTER);
+
+        // Added title and description to text container
+        textContainer.getChildren().addAll(title, description);
+
+        // Addd logo and text container to inner box
+        innerBox.getChildren().addAll(logo, textContainer);
+
+        // Adde inner box to left card
+        leftCard.getChildren().add(innerBox);
+        VBox.setVgrow(innerBox, javafx.scene.layout.Priority.ALWAYS);
+
         return leftCard;
     }
+
+
+
+
+
+
 
     private VBox createLoginCard() {
         VBox rightCard = new VBox(12);
@@ -104,6 +160,7 @@ public class LoginView {
         txtPassword.textProperty().bindBidirectional(txtPasswordText.textProperty());
 
         showPassword = new CheckBox("Show Password");
+        showPassword.getStyleClass().add("pass-button");
         showPassword.setOnAction(e -> {
             boolean show = showPassword.isSelected();
             txtPassword.setVisible(!show);
@@ -117,7 +174,7 @@ public class LoginView {
         btnForgot.setOnAction(e -> mainApp.showForgotPasswordView());
 
         // Show password + forgot password on same row
-        HBox passwordRow = new HBox(10);
+        HBox passwordRow = new HBox(200);
         passwordRow.setAlignment(Pos.CENTER_LEFT);
         passwordRow.getChildren().addAll(showPassword, btnForgot);
 
